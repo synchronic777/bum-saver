@@ -1,14 +1,15 @@
+########################################################
+# This file features functions that need pip packages
+# and won't be used in the setup script as there aren't
+# any virtual environments installed at first
+
 from datetime import datetime
-from tools.utils import log, get_dt, get_settings, get_setup_fld
+from tools.utils import log, get_dt
 from click import echo
 import requests
 import pytz
 import click
 
-########################################################
-# This file is listing functions that need pip packages
-# and won't be used in the setup script as there aren't
-# any virtual environments installed at first
 
 def s_print(step, lvl, message, *args, **kwargs):
     """Standardizes the output format
@@ -33,9 +34,9 @@ def s_print(step, lvl, message, *args, **kwargs):
             count = f'[{kwargs["cnt"]}]'
         if 'input' in kwarg:
             u_input = True
-    string = f"[{(f'{uid}:' if uid else '')}{get_dt()}:{step}]{count}[{lvl}] {message}"
-    log(string, log_type)
-
+    string = f'{step}]{count}[{lvl}] {message}'
+    log(f'[{uid + ':' if uid else ''}{string}', log_type)
+    string = f'[{string}'
     if lvl == 'I':
         if not u_input:
             echo(string)

@@ -9,7 +9,8 @@ import os
 import json
 import glob
 import json
-
+import sys
+import time
 
 # Cached data
 
@@ -72,14 +73,6 @@ def suid():
         chunks.remove(chunk)
         count += 1
     return uid
-
-
-def update_state(state, status, path):
-    if status == 0:
-        state['backed_up'].append(path)
-    elif status == 1:
-        state['failed'].append(path)
-    return state
 
 
 def iterate_log_name(log_name):
@@ -198,6 +191,18 @@ def iglob_hidden(*args, **kwargs):
         yield from glob.iglob(*args, **kwargs)
     finally:
         glob._ishidden = old_ishidden
+
+
+def get_file_size(archive_path):
+    try:
+        # Get the file size in bytes
+        file_size = os.path.getsize(archive_path)
+        # Convert the file size to megabytes
+        file_size_mb = file_size / (1024 * 1024)
+        return file_size_mb
+    except OSError as e:
+        # Handle the error if the file does not exist or is inaccessible
+        return {"error": str(e)}
 
 
 def get_files(path, exclusions, options):
