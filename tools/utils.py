@@ -76,7 +76,7 @@ def suid():
 
 def update_state(state, status, path):
     if status == 0:
-        state['done'].append(path)
+        state['backed_up'].append(path)
     elif status == 1:
         state['failed'].append(path)
     return state
