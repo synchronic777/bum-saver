@@ -100,14 +100,6 @@ def spinner_animation(stop_event, message):
     sys.stdout.write('\r')  # Clear the spinner line when done
 
 
-def update_state(state, status, path):
-    if status == 0:
-        state['done'].append(path)
-    elif status == 1:
-        state['failed'].append(path)
-    return state
-
-
 def iterate_log_name(log_name):
     name_chunk = log_name.split('.')[0]
     ext_chunk = log_name.split('.')[1]
