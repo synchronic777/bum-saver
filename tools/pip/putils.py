@@ -2,7 +2,10 @@
 # This file features functions that need pip packages
 # and won't be used in the setup script as there aren't
 # any virtual environments installed at first
-
+from tools.state import (
+    state,
+    set_state
+)
 from datetime import datetime
 from tools.utils import log, get_dt, spinner_animation
 from click import echo
@@ -10,6 +13,7 @@ import threading
 import requests
 import pytz
 import click
+import sys
 
 
 def s_print(step, lvl, message, *args, **kwargs):
@@ -35,6 +39,14 @@ def s_print(step, lvl, message, *args, **kwargs):
             count = f'[{kwargs['cnt']}]'
         if 'input' in kwarg:
             u_input = True
+        # if 'clear' in kwarg and val:
+        #     # Move the cursor up by one line
+        #     sys.stdout.write("\033[F")  # ANSI escape code: Move cursor up one line
+        #     # Clear the current line
+        #     sys.stdout.write("\033[K")  # ANSI escape code: Clear from cursor to the end of the line
+        #     # Ensure output is flushed
+        #     sys.stdout.flush()
+
     string = f'{step}]{count}[{lvl}] {message}'
     log(f'[{uid + ':' if uid else ''}{get_dt()}:{string}', log_type)
     string = f'[{string}'
